@@ -48,7 +48,9 @@ productRouter.post('/product', async (req, res) => {
 productRouter.get('/product/:id', async (req, res) => {
   try {
     const id = req.params.id;
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).select(
+      'name description brand price image images'
+    );
     if (!product) {
       res.status(404).send('Cannot find product with this id');
     }
@@ -61,7 +63,9 @@ productRouter.get('/product/:id', async (req, res) => {
 productRouter.get('/product', async (req, res) => {
   try {
     const id = req.params.id;
-    const products = await Product.find();
+    const products = await Product.find().select(
+      'name description brand price image images'
+    );
     if (!products) {
       res.status(404).send('Cannot find any product');
     }
